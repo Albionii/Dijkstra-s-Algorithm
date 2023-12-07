@@ -1,0 +1,32 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+
+.canvas {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  background-color: red;  
+}
+
+.elements {
+  position: relative;
+  display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+  height: 15%;
+  width: 100%;
+  top: 85%;
+  background-color: green;
+}
+
+.node {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: purple;
+}
