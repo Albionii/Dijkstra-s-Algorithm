@@ -1,20 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Dijkstra's Algorithm</title>
-  <script src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dijkstra's Algorithm</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
 
-  <div class="canvas">
-    <div class="elements">
-      <div class="node" draggable="true" ondragstart="drag(event)"></div>
+  <div class="container">
+    <div class="canvas">
+    </div>
+    
+    <div class="elementBar">
+      <div id = "staticCircle"></div>
     </div>
   </div>
-  <p>hello</p>
-  
+
+
+
+  <script>
+    let start = false;
+
+    $(document).ready(function () {
+      // Create a draggable circle
+        let startPoint;
+        let isDrawing = false;
+        let line;
+        let dx, dy;
+
+        function updateLine(endPoint){
+          const distance = Math.sqrt((endPoint.x - startPoint.x)**2 + (endPoint.y - startPoint.y)**2);
+          const angle = Math.atan2(endPoint.y - startPoint.y, endPoint.x - startPoint.x);
+
+          line.width(distance).css({
+            transform: `translate(${startPoint.x}px, ${startPoint.y}px) rotate(${angle}rad)`,
+          });
+        }
+
+        function createDraggableCircle() {
+            var circle = $("<div class='draggable'></div>");
+            $(".canvas").append(circle);
+            circle.draggable();
+        }
+
+        
+        $(".canvas").on("click", ".draggable", function(event) {
+            if (line == null) {
+              let l = $("<div class='line'></div>");
+              $(".canvas").append(l);
+              line = l;
+              line.css({ top: 0, left: 0, width: 0 });
+            }
+            if (isDrawing) {
+              isDrawing = false;
+              // line.width(0); // Reset line width
+
+              // Do something with the end position (e.g., connect to another circle)
+
+              
+              let centerXOfCircle = $(this).offset().left + $(this).width()/2;
+              let centerYOfCircle = $(this).offset().top + $(this).width()/2;
+              const endPoint = { x: centerXOfCircle-dx, y: centerYOfCircle-dy };
+              
+              updateLine(endPoint);
+              alert(`Line drawn from (${startPoint.x}, ${startPoint.y}) to (${endPoint.x}, ${endPoint.y})`);
+              // line = null;
+            }else {
+              isDrawing = true;
+              startPoint = { x: event.clientX, y: event.clientY };
+              
+              let centerXOfCircle = $(this).offset().left + $(this).width()/2;
+              let centerYOfCircle = $(this).offset().top + $(this).width()/2;
+              
+              let distanceXFromCenter = centerXOfCircle - event.clientX;
+              let distanceYFromCenter = centerYOfCircle - event.clientY;
+              dx = distanceXFromCenter;
+              dy = distanceYFromCenter;
+
+              line.css({ top: dy, left: dx, width: 0 });
+            }
+
+        });
+
+
+
+        $('.canvas').on('mousemove', function (e) {
+      // Update line position while moving the mouse
+          if (isDrawing) {
+            const endPoint = { x: e.clientX - dx, y: e.clientY - dy };
+            updateLine(endPoint); 
+          }
+        });
+
+        $("#staticCircle").click(function(event){
+          createDraggableCircle();
+          start = true;
+        })
+
+        if (start){
+          createDraggableCircle();
+        }
+    });
+</script>
+
 </body>
 </html>
