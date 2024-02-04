@@ -3,50 +3,9 @@
   padding: 0px;
 }
 
-.draggable {
-  width: 50px;
-  height: 50px;
-  background-color: #3498db;
-  border-radius: 50%;
+#myCanvas{
   position: absolute;
-}
-
-.container {
-  width: 100%;
-  height: 100%;
-  /* background-color: red; */
-  position: absolute;
-}
-
-.canvas {
-  /* background-color: blue; */
-  width: 100%;
-  height: 85%;
-}
-
-.elementBar {
-  width: 100%;
-  height: 15%;
-  display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
-
-  /* background-color: green; */
-}
-
-.line {
-  position: absolute;
-  /* background-color: red; */
-  transform-origin: 0 0;
-  border: 1px solid black;
-  pointer-events: none;
-}
-
-#staticCircle{
-  width: 50px;
-  height: 50px;
-  background-color: #3498db;
-  border-radius: 50%;
+  width : 700px;
+  /* height: 100%; */
+  background-color: red;
 }
